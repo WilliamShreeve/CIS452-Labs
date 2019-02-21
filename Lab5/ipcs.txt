@@ -1,0 +1,93 @@
+Script started on 2019-02-14 08:27:24-05:00 [TERM="xterm" TTY="/dev/pts/0" COLUMNS="96" LINES="52"]
+]0;shreevew@eos10:~/CIS452-Labs/Lab5[shreevew@eos10 Lab5]$ ./a.out
+value a: 0x7f3c99694000	 value b: 0x7f3c99695000
+ ID: 66519062
+^C
+]0;shreevew@eos10:~/CIS452-Labs/Lab5[shreevew@eos10 Lab5]$ ipcs
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+0x00000000 64126976   shreevew   600        524288     2          dest         
+0x00000000 64028673   shreevew   600        524288     2          dest         
+0x00000000 37453826   deleonl    600        524288     2          dest         
+0x00000000 38109187   deleonl    600        4194304    2          dest         
+0x00000000 37748740   deleonl    600        524288     2          dest         
+0x00000000 37650437   deleonl    600        524288     2          dest         
+0x00000000 37879814   deleonl    600        524288     2          dest         
+0x00000000 37978119   deleonl    600        524288     2          dest         
+0x00000000 38010888   deleonl    600        33554432   2          dest         
+0x00000000 38273033   deleonl    600        2097152    2          dest         
+0x00000000 38174730   deleonl    600        33554432   2          dest         
+0x00000000 64225291   shreevew   600        524288     2          dest         
+0x00000000 64323596   shreevew   600        524288     2          dest         
+0x00000000 64520205   shreevew   600        524288     2          dest         
+0x00000000 64618510   shreevew   600        4194304    2          dest         
+0x00000000 64782351   shreevew   600        524288     2          dest         
+0x00000000 64684048   shreevew   600        67108864   2          dest         
+0x00000000 64815121   shreevew   600        1048576    2          dest         
+0x00000000 64946194   shreevew   600        1048576    2          dest         
+0x00000000 64880659   shreevew   600        2572288    2          dest         
+0x00000000 64978964   shreevew   600        2572288    2          dest         
+0x00000000 65798165   shreevew   600        12288      2          dest         
+0x00000000 66519062   shreevew   600        4096       0                       
+0x00000000 65437719   shreevew   600        1167360    2          dest         
+0x00000000 65536024   shreevew   600        1167360    2          dest         
+0x00000000 65699865   shreevew   600        36864      2          dest         
+0x00000000 65732634   shreevew   600        36864      2          dest         
+0x00000000 65830939   shreevew   600        12288      2          dest         
+0x00000000 66486301   shreevew   600        524288     2          dest         
+0x00000000 66289695   shreevew   600        106496     2          dest         
+0x00000000 66322464   shreevew   600        106496     2          dest         
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems     
+
+]0;shreevew@eos10:~/CIS452-Labs/Lab5[shreevew@eos10 Lab5]$ ipcrm -m 66519062
+]0;shreevew@eos10:~/CIS452-Labs/Lab5[shreevew@eos10 Lab5]$ ipcs
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+0x00000000 64126976   shreevew   600        524288     2          dest         
+0x00000000 64028673   shreevew   600        524288     2          dest         
+0x00000000 37453826   deleonl    600        524288     2          dest         
+0x00000000 38109187   deleonl    600        4194304    2          dest         
+0x00000000 37748740   deleonl    600        524288     2          dest         
+0x00000000 37650437   deleonl    600        524288     2          dest         
+0x00000000 37879814   deleonl    600        524288     2          dest         
+0x00000000 37978119   deleonl    600        524288     2          dest         
+0x00000000 38010888   deleonl    600        33554432   2          dest         
+0x00000000 38273033   deleonl    600        2097152    2          dest         
+0x00000000 38174730   deleonl    600        33554432   2          dest         
+0x00000000 64225291   shreevew   600        524288     2          dest         
+0x00000000 64323596   shreevew   600        524288     2          dest         
+0x00000000 64520205   shreevew   600        524288     2          dest         
+0x00000000 64618510   shreevew   600        4194304    2          dest         
+0x00000000 64782351   shreevew   600        524288     2          dest         
+0x00000000 64684048   shreevew   600        67108864   2          dest         
+0x00000000 64815121   shreevew   600        1048576    2          dest         
+0x00000000 64946194   shreevew   600        1048576    2          dest         
+0x00000000 64880659   shreevew   600        2572288    2          dest         
+0x00000000 64978964   shreevew   600        2572288    2          dest         
+0x00000000 65798165   shreevew   600        12288      2          dest         
+0x00000000 65437719   shreevew   600        1167360    2          dest         
+0x00000000 65536024   shreevew   600        1167360    2          dest         
+0x00000000 65699865   shreevew   600        36864      2          dest         
+0x00000000 65732634   shreevew   600        36864      2          dest         
+0x00000000 65830939   shreevew   600        12288      2          dest         
+0x00000000 66486301   shreevew   600        524288     2          dest         
+0x00000000 66289695   shreevew   600        106496     2          dest         
+0x00000000 66322464   shreevew   600        106496     2          dest         
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems     
+
+]0;shreevew@eos10:~/CIS452-Labs/Lab5[shreevew@eos10 Lab5]$ exit
+exit
+
+Script done on 2019-02-14 08:27:50-05:00 [COMMAND_EXIT_CODE="0"]
