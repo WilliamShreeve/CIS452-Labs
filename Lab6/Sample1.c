@@ -6,8 +6,11 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
+#include <sys/sem.h>
 
 #define SIZE 16
+
+
 
 int main (int argc, char **argv)
 {
@@ -15,6 +18,19 @@ int main (int argc, char **argv)
    long int i, loop, temp, *shmPtr;
    int shmId;
    pid_t pid;
+
+   //Declare Semaphore
+   int semId;
+   //Initalize Semaphore
+   semId = semget(IPC_PRIVATE, 1, 0600);
+   //Initialize semaphore '0' (First one) to 1
+   semctl(semId, 0, SETVAL, 1);
+   //Ensure proper creation and intialization
+   if(semId == -1){
+	   perror("Error with semget");
+	   exit(1);
+   }
+
 
       // get value of loop variable (from command-line argument)
 
@@ -41,10 +57,25 @@ int main (int argc, char **argv)
 
    if (!(pid = fork())) {
       for (i=0; i<loop; i++) {
+	       struct sembuf sem_op;
+	       //Sem_num is the number for the semaphore
+	       //Sem_op -1 tells us to wait 
+	       sem_op.sem_num = 0;
+	       sem_op.sem_op = -1;
+	       sem_op.sem_flg = 0;
+	       semop(semId, &sem_op, 1);
+
                // swap the contents of shmPtr[0] and shmPtr[1]
 	       temp = shmPtr[0];
 	       shmPtr[0] = shmPtr[1];
 	       shmPtr[1] = temp;
+	       
+	  
+	       //Sem_op 1 tells us to add to the semaphore
+	       sem_op.sem_num = 0;
+	       sem_op.sem_op = 1;
+	       sem_op.sem_flg = 0;
+	       semop(semId, &sem_op, 1);
       }
       if (shmdt (shmPtr) < 0) {
          perror ("just can't let go\n");
@@ -54,14 +85,26 @@ int main (int argc, char **argv)
    }
    else
       for (i=0; i<loop; i++) {
+               struct sembuf sem_op;
+	       sem_op.sem_num = 0;
+	       sem_op.sem_op = -1;
+	       sem_op.sem_flg = 0;
+	       semop(semId, &sem_op, 1);
+
                // swap the contents of shmPtr[1] and shmPtr[0]
-	       temp = shmPtr[1];
+ 	       temp = shmPtr[1];
 	       shmPtr[1] = shmPtr[0];
 	       shmPtr[0] = temp;
+	       
+	       sem_op.sem_num = 0;
+	       sem_op.sem_op = 1;
+	       sem_op.sem_flg = 0;
+	       semop(semId, &sem_op, 1);
       }
 
    wait (&status);
    printf ("values: %li\t%li\n", shmPtr[0], shmPtr[1]);
+   semctl(semId, 0, IPC_RMID);
 
    if (shmdt (shmPtr) < 0) {
       perror ("just can't let go\n");
@@ -71,6 +114,6 @@ int main (int argc, char **argv)
       perror ("can't deallocate\n");
       exit(1);
    }
-
+  
    return 0;
 }
